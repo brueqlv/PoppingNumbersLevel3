@@ -25,8 +25,6 @@ namespace PoppingNumbersLevel3
             var gameNumbersFrom = UserInputHelper.GetValidUserInputNumber("Enter min game number", maxGameNumber, minGameNumber);
             var gameNumbersTo = UserInputHelper.GetValidUserInputNumber("Enter max game number", maxGameNumber, minGameNumber);
 
-            var gameNumbers = new GameNumbers(gameNumbersFrom, gameNumbersTo);
-
             var appearancePredictor = UserInputHelper.GetValidUserInputBoolean("Do you want to use number appearance predictor?");
 
             while (true)
@@ -34,25 +32,28 @@ namespace PoppingNumbersLevel3
                 Console.Clear();
                 Console.WriteLine($"{userName} score - {score}");
 
-                gameService.PrintBoard();
-
-                var number = UserInputHelper.GetValidUserInputNumber("Enter a number", gameNumbers.To, gameNumbers.From).ToString();
-                var row = UserInputHelper.GetValidUserInputNumber("Enter row", gameBoard.Height);
-                var col = UserInputHelper.GetValidUserInputNumber("Enter col", gameBoard.Width);
-
                 if (appearancePredictor)
                 {
                     gameService.ComputerTurn(gameNumbersFrom, gameNumbersTo, appearancePredictor);
                 }
 
-                gameService.PlayerTurn(number, row, col);
+                gameService.PrintBoard();
+
+                gameService.PlayerTurn(gameNumbersFrom, gameNumbersTo);
 
                 if (gameService.IsGameOver())
                 {
                     break;
                 }
 
-                gameService.ComputerTurn(gameNumbersFrom, gameNumbersTo, appearancePredictor);
+                if (appearancePredictor)
+                {
+                    gameService.ReplaceStarsWithRandomNumbers(gameNumbersFrom, gameNumbersTo);
+                }
+                else
+                {
+                    gameService.ComputerTurn(gameNumbersFrom, gameNumbersTo, appearancePredictor);
+                }
 
                 score += gameService.ClearConnectedNumbers();
 
@@ -61,6 +62,9 @@ namespace PoppingNumbersLevel3
                     break;
                 }
             }
+
+            Console.WriteLine("Game Over! No more spaces left.");
+            Console.ReadLine();
         }
     }
 }

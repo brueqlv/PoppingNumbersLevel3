@@ -23,16 +23,6 @@ namespace PoppingNumbersLevel3Tests
         }
 
         [Test]
-        public void PlayerTurn_ShouldPlaceNumberOnBoard()
-        {
-            //Act
-            _gameService.PlayerTurn("2", 1, 1);
-
-            //Assert
-            Assert.That(_gameBoard.Board[0, 0], Is.EqualTo("2"));
-        }
-
-        [Test]
         public void ComputerTurn_ShouldPlaceThreeRandomNumbers()
         {
             //Arrange & Act
@@ -168,6 +158,54 @@ namespace PoppingNumbersLevel3Tests
         }
 
         [Test]
+        public void ClearConnectedNumbers_ShouldReturn100ForHorizontalTriplets()
+        {
+            //Arrange
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[0, 1] = "1";
+            _gameBoard.Board[0, 2] = "1";
+
+            //Act
+            var result = _gameService.ClearConnectedNumbers();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(100));
+        }
+
+        [Test]
+        public void ClearConnectedNumbers_ShouldReturn200ForHorizontalQuadruplets()
+        {
+            //Arrange
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[0, 1] = "1";
+            _gameBoard.Board[0, 2] = "1";
+            _gameBoard.Board[0, 3] = "1";
+
+            //Act
+            var result = _gameService.ClearConnectedNumbers();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(200));
+        }
+
+        [Test]
+        public void ClearConnectedNumbers_ShouldReturn500ForHorizontalQuintuplets()
+        {
+            //Arrange
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[0, 1] = "1";
+            _gameBoard.Board[0, 2] = "1";
+            _gameBoard.Board[0, 3] = "1";
+            _gameBoard.Board[0, 4] = "1";
+
+            //Act
+            var result = _gameService.ClearConnectedNumbers();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(500));
+        }
+
+        [Test]
         public void ClearConnectedNumbers_ShouldClearVerticalAndHorizontalTriplets()
         {
             //Arrange
@@ -176,7 +214,6 @@ namespace PoppingNumbersLevel3Tests
             _gameBoard.Board[2, 0] = "1";
             _gameBoard.Board[0, 1] = "1";
             _gameBoard.Board[0, 2] = "1";
-            _gameBoard.Board[0, 3] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -190,6 +227,23 @@ namespace PoppingNumbersLevel3Tests
                 Assert.That(_gameBoard.Board[0, 1], Is.EqualTo(null));
                 Assert.That(_gameBoard.Board[0, 2], Is.EqualTo(null));
             });
+        }
+
+        [Test]
+        public void ClearConnectedNumbers_ShouldReturn200ForDiagonalAndHorizontalTriplets()
+        {
+            //Arrange
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[1, 0] = "1";
+            _gameBoard.Board[2, 0] = "1";
+            _gameBoard.Board[0, 1] = "1";
+            _gameBoard.Board[0, 2] = "1";
+
+            //Act
+            var result = _gameService.ClearConnectedNumbers();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(200));
         }
 
         [Test]
@@ -259,6 +313,54 @@ namespace PoppingNumbersLevel3Tests
         }
 
         [Test]
+        public void ClearConnectedNumbers_ShouldReturn100ForVerticalTriplets()
+        {
+            //Arrange
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[1, 0] = "1";
+            _gameBoard.Board[2, 0] = "1";
+
+            //Act
+            var result = _gameService.ClearConnectedNumbers();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(100));
+        }
+
+        [Test]
+        public void ClearConnectedNumbers_ShouldReturn200ForVerticalQuadruplets()
+        {
+            //Arrange
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[1, 0] = "1";
+            _gameBoard.Board[2, 0] = "1";
+            _gameBoard.Board[3, 0] = "1";
+
+            //Act
+            var result = _gameService.ClearConnectedNumbers();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(200));
+        }
+
+        [Test]
+        public void ClearConnectedNumbers_ShouldReturn500ForHVerticalQuintuplets()
+        {
+            //Arrange
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[1, 0] = "1";
+            _gameBoard.Board[2, 0] = "1";
+            _gameBoard.Board[3, 0] = "1";
+            _gameBoard.Board[4, 0] = "1";
+
+            //Act
+            var result = _gameService.ClearConnectedNumbers();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(500));
+        }
+
+        [Test]
         public void ClearConnectedNumbers_ShouldClearDiagonalTriplets()
         {
             //Arrange
@@ -322,6 +424,54 @@ namespace PoppingNumbersLevel3Tests
                 Assert.That(_gameBoard.Board[3, 3], Is.EqualTo(null));
                 Assert.That(_gameBoard.Board[4, 4], Is.EqualTo(null));
             });
+        }
+
+        [Test]
+        public void ClearConnectedNumbers_ShouldReturn100ForDiagonalTriplets()
+        {
+            //Arrange
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[1, 1] = "1";
+            _gameBoard.Board[2, 2] = "1";
+
+            //Act
+            var result = _gameService.ClearConnectedNumbers();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(100));
+        }
+
+        [Test]
+        public void ClearConnectedNumbers_ShouldReturn200ForDiagonalQuadruplets()
+        {
+            //Arrange
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[1, 1] = "1";
+            _gameBoard.Board[2, 2] = "1";
+            _gameBoard.Board[3, 3] = "1";
+
+            //Act
+            var result = _gameService.ClearConnectedNumbers();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(200));
+        }
+
+        [Test]
+        public void ClearConnectedNumbers_ShouldReturn500ForHDiagonalQuintuplets()
+        {
+            //Arrange
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[1, 1] = "1";
+            _gameBoard.Board[2, 2] = "1";
+            _gameBoard.Board[3, 3] = "1";
+            _gameBoard.Board[4, 4] = "1";
+
+            //Act
+            var result = _gameService.ClearConnectedNumbers();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(500));
         }
 
         [Test]
@@ -412,6 +562,54 @@ namespace PoppingNumbersLevel3Tests
                 Assert.That(_gameBoard.Board[3, 1], Is.EqualTo(null));
                 Assert.That(_gameBoard.Board[4, 0], Is.EqualTo(null));
             });
+        }
+
+        [Test]
+        public void ClearConnectedNumbers_ShouldReturn100ForReverseDiagonalTriplets()
+        {
+            //Arrange
+            _gameBoard.Board[0, 2] = "1";
+            _gameBoard.Board[1, 1] = "1";
+            _gameBoard.Board[2, 0] = "1";
+
+            //Act
+            var result = _gameService.ClearConnectedNumbers();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(100));
+        }
+
+        [Test]
+        public void ClearConnectedNumbers_ShouldReturn200ForReverseDiagonalQuadruplets()
+        {
+            //Arrange
+            _gameBoard.Board[0, 3] = "1";
+            _gameBoard.Board[1, 2] = "1";
+            _gameBoard.Board[2, 1] = "1";
+            _gameBoard.Board[3, 0] = "1";
+
+            //Act
+            var result = _gameService.ClearConnectedNumbers();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(200));
+        }
+
+        [Test]
+        public void ClearConnectedNumbers_ShouldReturn500ForReverseDiagonalQuintuplets()
+        {
+            //Arrange
+            _gameBoard.Board[0, 4] = "1";
+            _gameBoard.Board[1, 3] = "1";
+            _gameBoard.Board[2, 2] = "1";
+            _gameBoard.Board[3, 1] = "1";
+            _gameBoard.Board[4, 0] = "1";
+
+            //Act
+            var result = _gameService.ClearConnectedNumbers();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(500));
         }
     }
 }
