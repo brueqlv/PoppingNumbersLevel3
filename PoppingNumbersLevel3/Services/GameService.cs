@@ -5,19 +5,19 @@ namespace PoppingNumbersLevel3.Services
     public class GameService(GameBoard gameBoard)
     {
         private readonly Random _gameRandom = new();
-
-        private readonly Dictionary<int, ConsoleColor> _numberColors = new()
+        private readonly Dictionary<string, ConsoleColor> _numberColors = new()
         {
-            {0, ConsoleColor.Black},
-            {1, ConsoleColor.Blue},
-            {2, ConsoleColor.Cyan},
-            {3, ConsoleColor.DarkBlue},
-            {4, ConsoleColor.Magenta},
-            {5, ConsoleColor.Gray},
-            {6, ConsoleColor.White},
-            {7, ConsoleColor.DarkRed},
-            {8, ConsoleColor.DarkYellow},
-            {9, ConsoleColor.Yellow},
+            {"*", ConsoleColor.DarkGray},
+            {"0", ConsoleColor.DarkMagenta},
+            {"1", ConsoleColor.Blue},
+            {"2", ConsoleColor.Cyan},
+            {"3", ConsoleColor.DarkBlue},
+            {"4", ConsoleColor.Magenta},
+            {"5", ConsoleColor.Gray},
+            {"6", ConsoleColor.White},
+            {"7", ConsoleColor.DarkRed},
+            {"8", ConsoleColor.DarkYellow},
+            {"9", ConsoleColor.Yellow},
         };
 
         public void PrintBoard()
@@ -27,7 +27,7 @@ namespace PoppingNumbersLevel3.Services
                 for (var j = 0; j < gameBoard.Width; j++)
                 {
                     var number = gameBoard.Board[i, j];
-                    if (number == 0)
+                    if (number == null)
                     {
                         Console.Write("   ");
                     }
@@ -56,17 +56,17 @@ namespace PoppingNumbersLevel3.Services
                             Console.Write("|");
                         }
                     }
+
                     Console.WriteLine();
                 }
             }
         }
 
-
-        public void PlayerTurn(int number, int row, int col)
+        public void PlayerTurn(string number, int row, int col)
         {
             while (true)
             {
-                if (gameBoard.Board[row - 1, col - 1] == 0)
+                if (gameBoard.Board[row - 1, col - 1] == null)
                 {
                     gameBoard.Board[row - 1, col - 1] = number;
                     break;
@@ -76,7 +76,7 @@ namespace PoppingNumbersLevel3.Services
             }
         }
 
-        public void ComputerTurn(int minGameNumber, int maxGameNumber)
+        public void ComputerTurn(int minGameNumber, int maxGameNumber, bool useAppearancePredictor)
         {
             var numbersPlaced = 0;
 
@@ -85,9 +85,16 @@ namespace PoppingNumbersLevel3.Services
                 var row = _gameRandom.Next(gameBoard.Height);
                 var col = _gameRandom.Next(gameBoard.Width);
 
-                if (gameBoard.Board[row, col] == 0)
+                if (gameBoard.Board[row, col] == null)
                 {
-                    gameBoard.Board[row, col] = _gameRandom.Next(minGameNumber, maxGameNumber + 1);
+                    var placeTaker = "*";
+
+                    if (!useAppearancePredictor)
+                    {
+                        placeTaker = _gameRandom.Next(minGameNumber, maxGameNumber + 1).ToString();
+                    }
+
+                    gameBoard.Board[row, col] = placeTaker;
                     numbersPlaced++;
                 }
             }
@@ -99,7 +106,7 @@ namespace PoppingNumbersLevel3.Services
             {
                 for (var j = 0; j < gameBoard.Width; j++)
                 {
-                    if (gameBoard.Board[i, j] == 0)
+                    if (gameBoard.Board[i, j] == null)
                     {
                         return false;
                     }
@@ -139,7 +146,7 @@ namespace PoppingNumbersLevel3.Services
         private void MarkConnectedCells(bool[,] toClear, int startRow, int startCol, int rowIncrement, int colIncrement)
         {
             var current = gameBoard.Board[startRow, startCol];
-            if (current == 0) return;
+            if (current == null) return;
 
             var count = 1;
             var row = startRow + rowIncrement;
@@ -175,7 +182,7 @@ namespace PoppingNumbersLevel3.Services
                 {
                     if (toClear[i, j])
                     {
-                        gameBoard.Board[i, j] = 0;
+                        gameBoard.Board[i, j] = null;
                         clearedCells++;
                     }
                 }

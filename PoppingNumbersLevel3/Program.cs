@@ -27,6 +27,8 @@ namespace PoppingNumbersLevel3
 
             var gameNumbers = new GameNumbers(gameNumbersFrom, gameNumbersTo);
 
+            var appearancePredictor = UserInputHelper.GetValidUserInputBoolean("Do you want to use number appearance predictor?");
+
             while (true)
             {
                 Console.Clear();
@@ -34,9 +36,14 @@ namespace PoppingNumbersLevel3
 
                 gameService.PrintBoard();
 
-                var number = UserInputHelper.GetValidUserInputNumber("Enter a number", gameNumbers.To, gameNumbers.From);
+                var number = UserInputHelper.GetValidUserInputNumber("Enter a number", gameNumbers.To, gameNumbers.From).ToString();
                 var row = UserInputHelper.GetValidUserInputNumber("Enter row", gameBoard.Height);
                 var col = UserInputHelper.GetValidUserInputNumber("Enter col", gameBoard.Width);
+
+                if (appearancePredictor)
+                {
+                    gameService.ComputerTurn(gameNumbersFrom, gameNumbersTo, appearancePredictor);
+                }
 
                 gameService.PlayerTurn(number, row, col);
 
@@ -45,7 +52,7 @@ namespace PoppingNumbersLevel3
                     break;
                 }
 
-                gameService.ComputerTurn(gameNumbersFrom, gameNumbersTo);
+                gameService.ComputerTurn(gameNumbersFrom, gameNumbersTo, appearancePredictor);
 
                 score += gameService.ClearConnectedNumbers();
 

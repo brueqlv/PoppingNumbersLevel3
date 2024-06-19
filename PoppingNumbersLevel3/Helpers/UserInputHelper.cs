@@ -1,4 +1,5 @@
-﻿namespace PoppingNumbersLevel3.Helpers
+﻿
+namespace PoppingNumbersLevel3.Helpers
 {
     public class UserInputHelper
     {
@@ -31,6 +32,26 @@
                 if (!string.IsNullOrWhiteSpace(userName))
                 {
                     return userName;
+                }
+            }
+        }
+
+        public static bool GetValidUserInputBoolean(string message)
+        {
+            while (true)
+            {
+                Console.WriteLine($"{message} (y/n)");
+                var userInput = Console.ReadLine().ToLower().Trim();
+
+                switch (userInput)
+                {
+                    case "y":
+                        return true;
+                    case "n":
+                        return false;
+                    default:
+                        Console.WriteLine("Invalid Input, try again.");
+                        break;
                 }
             }
         }

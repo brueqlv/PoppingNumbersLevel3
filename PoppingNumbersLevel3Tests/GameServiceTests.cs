@@ -26,24 +26,24 @@ namespace PoppingNumbersLevel3Tests
         public void PlayerTurn_ShouldPlaceNumberOnBoard()
         {
             //Act
-            _gameService.PlayerTurn(2, 1, 1);
+            _gameService.PlayerTurn("2", 1, 1);
 
             //Assert
-            Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(2));
+            Assert.That(_gameBoard.Board[0, 0], Is.EqualTo("2"));
         }
 
         [Test]
         public void ComputerTurn_ShouldPlaceThreeRandomNumbers()
         {
             //Arrange & Act
-            _gameService.ComputerTurn(1, 3);
+            _gameService.ComputerTurn(1, 3, false);
 
             var nonZeroCount = 0;
             for (var i = 0; i < _gameBoard.Height; i++)
             {
                 for (var j = 0; j < _gameBoard.Width; j++)
                 {
-                    if (_gameBoard.Board[i, j] != 0)
+                    if (_gameBoard.Board[i, j] != null)
                     {
                         nonZeroCount++;
                     }
@@ -69,7 +69,7 @@ namespace PoppingNumbersLevel3Tests
             {
                 for (var j = 0; j < _gameBoard.Width; j++)
                 {
-                    _gameBoard.Board[i, j] = 1;
+                    _gameBoard.Board[i, j] = "1";
                 }
             }
             //Act & Assert
@@ -80,9 +80,9 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_HorizontalTriplets_ShouldReturnPoints()
         {
             //arrange
-            _gameBoard.Board[0, 0] = 1;
-            _gameBoard.Board[0, 1] = 1;
-            _gameBoard.Board[0, 2] = 1;
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[0, 1] = "1";
+            _gameBoard.Board[0, 2] = "1";
 
             //Act
             var points = _gameService.ClearConnectedNumbers();
@@ -105,9 +105,9 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_ShouldClearHorizontalTriplets()
         {
             //arrange
-            _gameBoard.Board[0, 0] = 1;
-            _gameBoard.Board[0, 1] = 1;
-            _gameBoard.Board[0, 2] = 1;
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[0, 1] = "1";
+            _gameBoard.Board[0, 2] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -115,9 +115,9 @@ namespace PoppingNumbersLevel3Tests
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[0, 1], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[0, 2], Is.EqualTo(0));
+                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[0, 1], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[0, 2], Is.EqualTo(null));
             });
         }
 
@@ -125,10 +125,10 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_ShouldClearHorizontalQuadruplets()
         {
             //Arrange
-            _gameBoard.Board[0, 0] = 1;
-            _gameBoard.Board[0, 1] = 1;
-            _gameBoard.Board[0, 2] = 1;
-            _gameBoard.Board[0, 3] = 1;
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[0, 1] = "1";
+            _gameBoard.Board[0, 2] = "1";
+            _gameBoard.Board[0, 3] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -136,10 +136,10 @@ namespace PoppingNumbersLevel3Tests
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[0, 1], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[0, 2], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[0, 3], Is.EqualTo(0));
+                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[0, 1], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[0, 2], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[0, 3], Is.EqualTo(null));
             });
         }
 
@@ -147,11 +147,11 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_ShouldClearHorizontalQuintuplets()
         {
             //Arrange
-            _gameBoard.Board[0, 0] = 1;
-            _gameBoard.Board[0, 1] = 1;
-            _gameBoard.Board[0, 2] = 1;
-            _gameBoard.Board[0, 3] = 1;
-            _gameBoard.Board[0, 4] = 1;
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[0, 1] = "1";
+            _gameBoard.Board[0, 2] = "1";
+            _gameBoard.Board[0, 3] = "1";
+            _gameBoard.Board[0, 4] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -159,11 +159,11 @@ namespace PoppingNumbersLevel3Tests
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[0, 1], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[0, 2], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[0, 3], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[0, 4], Is.EqualTo(0));
+                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[0, 1], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[0, 2], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[0, 3], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[0, 4], Is.EqualTo(null));
             });
         }
 
@@ -171,12 +171,12 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_ShouldClearVerticalAndHorizontalTriplets()
         {
             //Arrange
-            _gameBoard.Board[0, 0] = 1;
-            _gameBoard.Board[1, 0] = 1;
-            _gameBoard.Board[2, 0] = 1;
-            _gameBoard.Board[0, 1] = 1;
-            _gameBoard.Board[0, 2] = 1;
-            _gameBoard.Board[0, 3] = 1;
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[1, 0] = "1";
+            _gameBoard.Board[2, 0] = "1";
+            _gameBoard.Board[0, 1] = "1";
+            _gameBoard.Board[0, 2] = "1";
+            _gameBoard.Board[0, 3] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -184,11 +184,11 @@ namespace PoppingNumbersLevel3Tests
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[1, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[2, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[0, 1], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[0, 2], Is.EqualTo(0));
+                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[1, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[2, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[0, 1], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[0, 2], Is.EqualTo(null));
             });
         }
 
@@ -196,9 +196,9 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_ShouldClearVerticalTriplets()
         {
             //Arrange
-            _gameBoard.Board[0, 0] = 1;
-            _gameBoard.Board[1, 0] = 1;
-            _gameBoard.Board[2, 0] = 1;
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[1, 0] = "1";
+            _gameBoard.Board[2, 0] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -206,9 +206,9 @@ namespace PoppingNumbersLevel3Tests
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[1, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[2, 0], Is.EqualTo(0));
+                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[1, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[2, 0], Is.EqualTo(null));
             });
         }
 
@@ -216,10 +216,10 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_ShouldClearVerticalQuadruplets()
         {
             //Arrange
-            _gameBoard.Board[0, 0] = 1;
-            _gameBoard.Board[1, 0] = 1;
-            _gameBoard.Board[2, 0] = 1;
-            _gameBoard.Board[3, 0] = 1;
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[1, 0] = "1";
+            _gameBoard.Board[2, 0] = "1";
+            _gameBoard.Board[3, 0] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -227,10 +227,10 @@ namespace PoppingNumbersLevel3Tests
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[1, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[2, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[3, 0], Is.EqualTo(0));
+                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[1, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[2, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[3, 0], Is.EqualTo(null));
             });
         }
 
@@ -238,11 +238,11 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_ShouldClearVerticalQuintuplets()
         {
             //Arrange
-            _gameBoard.Board[0, 0] = 1;
-            _gameBoard.Board[1, 0] = 1;
-            _gameBoard.Board[2, 0] = 1;
-            _gameBoard.Board[3, 0] = 1;
-            _gameBoard.Board[4, 0] = 1;
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[1, 0] = "1";
+            _gameBoard.Board[2, 0] = "1";
+            _gameBoard.Board[3, 0] = "1";
+            _gameBoard.Board[4, 0] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -250,11 +250,11 @@ namespace PoppingNumbersLevel3Tests
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[1, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[2, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[3, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[4, 0], Is.EqualTo(0));
+                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[1, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[2, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[3, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[4, 0], Is.EqualTo(null));
             });
         }
 
@@ -262,9 +262,9 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_ShouldClearDiagonalTriplets()
         {
             //Arrange
-            _gameBoard.Board[0, 0] = 1;
-            _gameBoard.Board[1, 1] = 1;
-            _gameBoard.Board[2, 2] = 1;
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[1, 1] = "1";
+            _gameBoard.Board[2, 2] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -272,9 +272,9 @@ namespace PoppingNumbersLevel3Tests
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[1, 1], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[2, 2], Is.EqualTo(0));
+                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[1, 1], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[2, 2], Is.EqualTo(null));
             });
         }
 
@@ -282,10 +282,10 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_ShouldClearDiagonalQuadruplets()
         {
             //Arrange
-            _gameBoard.Board[0, 0] = 1;
-            _gameBoard.Board[1, 1] = 1;
-            _gameBoard.Board[2, 2] = 1;
-            _gameBoard.Board[3, 3] = 1;
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[1, 1] = "1";
+            _gameBoard.Board[2, 2] = "1";
+            _gameBoard.Board[3, 3] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -293,10 +293,10 @@ namespace PoppingNumbersLevel3Tests
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[1, 1], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[2, 2], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[3, 3], Is.EqualTo(0));
+                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[1, 1], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[2, 2], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[3, 3], Is.EqualTo(null));
             });
         }
 
@@ -304,11 +304,11 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_ShouldClearDiagonalQuintuplets()
         {
             //Arrange
-            _gameBoard.Board[0, 0] = 1;
-            _gameBoard.Board[1, 1] = 1;
-            _gameBoard.Board[2, 2] = 1;
-            _gameBoard.Board[3, 3] = 1;
-            _gameBoard.Board[4, 4] = 1;
+            _gameBoard.Board[0, 0] = "1";
+            _gameBoard.Board[1, 1] = "1";
+            _gameBoard.Board[2, 2] = "1";
+            _gameBoard.Board[3, 3] = "1";
+            _gameBoard.Board[4, 4] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -316,11 +316,11 @@ namespace PoppingNumbersLevel3Tests
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[1, 1], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[2, 2], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[3, 3], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[4, 4], Is.EqualTo(0));
+                Assert.That(_gameBoard.Board[0, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[1, 1], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[2, 2], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[3, 3], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[4, 4], Is.EqualTo(null));
             });
         }
 
@@ -328,11 +328,11 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_ShouldClearDiagonalAndReverseDiagonalTriplets()
         {
             //Arrange
-            _gameBoard.Board[0, 2] = 1;
-            _gameBoard.Board[1, 1] = 1;
-            _gameBoard.Board[2, 0] = 1;
-            _gameBoard.Board[1, 3] = 1;
-            _gameBoard.Board[2, 4] = 1;
+            _gameBoard.Board[0, 2] = "1";
+            _gameBoard.Board[1, 1] = "1";
+            _gameBoard.Board[2, 0] = "1";
+            _gameBoard.Board[1, 3] = "1";
+            _gameBoard.Board[2, 4] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -340,11 +340,11 @@ namespace PoppingNumbersLevel3Tests
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(_gameBoard.Board[0, 2], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[1, 1], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[2, 0], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[1, 3], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[2, 4], Is.EqualTo(0));
+                Assert.That(_gameBoard.Board[0, 2], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[1, 1], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[2, 0], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[1, 3], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[2, 4], Is.EqualTo(null));
             });
         }
 
@@ -352,9 +352,9 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_ShouldClearReverseDiagonalTriplets()
         {
             //Arrange
-            _gameBoard.Board[0, 2] = 1;
-            _gameBoard.Board[1, 1] = 1;
-            _gameBoard.Board[2, 0] = 1;
+            _gameBoard.Board[0, 2] = "1";
+            _gameBoard.Board[1, 1] = "1";
+            _gameBoard.Board[2, 0] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -362,9 +362,9 @@ namespace PoppingNumbersLevel3Tests
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(_gameBoard.Board[0, 2], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[1, 1], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[2, 0], Is.EqualTo(0));
+                Assert.That(_gameBoard.Board[0, 2], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[1, 1], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[2, 0], Is.EqualTo(null));
             });
         }
 
@@ -372,10 +372,10 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_ShouldClearReverseDiagonalQuadruplets()
         {
             //Arrange
-            _gameBoard.Board[0, 3] = 1;
-            _gameBoard.Board[1, 2] = 1;
-            _gameBoard.Board[2, 1] = 1;
-            _gameBoard.Board[3, 0] = 1;
+            _gameBoard.Board[0, 3] = "1";
+            _gameBoard.Board[1, 2] = "1";
+            _gameBoard.Board[2, 1] = "1";
+            _gameBoard.Board[3, 0] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -383,10 +383,10 @@ namespace PoppingNumbersLevel3Tests
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(_gameBoard.Board[0, 3], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[1, 2], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[2, 1], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[3, 0], Is.EqualTo(0));
+                Assert.That(_gameBoard.Board[0, 3], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[1, 2], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[2, 1], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[3, 0], Is.EqualTo(null));
             });
         }
 
@@ -394,11 +394,11 @@ namespace PoppingNumbersLevel3Tests
         public void ClearConnectedNumbers_ShouldClearReverseDiagonalQuintuplets()
         {
             //Arrange
-            _gameBoard.Board[0, 4] = 1;
-            _gameBoard.Board[1, 3] = 1;
-            _gameBoard.Board[2, 2] = 1;
-            _gameBoard.Board[3, 1] = 1;
-            _gameBoard.Board[4, 0] = 1;
+            _gameBoard.Board[0, 4] = "1";
+            _gameBoard.Board[1, 3] = "1";
+            _gameBoard.Board[2, 2] = "1";
+            _gameBoard.Board[3, 1] = "1";
+            _gameBoard.Board[4, 0] = "1";
 
             //Act
             _gameService.ClearConnectedNumbers();
@@ -406,11 +406,11 @@ namespace PoppingNumbersLevel3Tests
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(_gameBoard.Board[0, 4], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[1, 3], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[2, 2], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[3, 1], Is.EqualTo(0));
-                Assert.That(_gameBoard.Board[4, 0], Is.EqualTo(0));
+                Assert.That(_gameBoard.Board[0, 4], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[1, 3], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[2, 2], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[3, 1], Is.EqualTo(null));
+                Assert.That(_gameBoard.Board[4, 0], Is.EqualTo(null));
             });
         }
     }
